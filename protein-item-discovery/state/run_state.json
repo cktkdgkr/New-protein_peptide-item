@@ -4,7 +4,7 @@
     "min_iterations": 3,
     "auto_chain": true
   },
-  "current_iteration": 2,
+  "current_iteration": 3,
   "iterations": [
     {
       "iter": 1,
@@ -59,6 +59,25 @@
         "D_digest": {"status":"done","output":"iterations/iter_02/digest.md","ts":"2026-05-21T09:35:00Z","notes":"R2 per-iter digest 작성 (mirror: reports/digest_round_02_20260521.md). Top 3: item_008(4.30 ▲+0.10), item_002(4.20), item_007·item_021 tie(4.10, item_021 new). IN: item_021·item_017 / OUT: item_006(-0.25)·item_009(cap). quality-gate 미발동. consolidated digest는 R3에서 작성(min_iterations=3 미도달)."}
       },
       "completed_ts": "2026-05-21T09:35:00Z"
+    },
+    {
+      "iter": 3,
+      "run_id": "20260521-C",
+      "focus": "quantitative_validation_and_ip_fto",
+      "started_ts": "2026-05-21T10:00:00Z",
+      "completed_ts": null,
+      "output_root": "iterations/iter_03",
+      "phases": {
+        "A_landscape": {
+          "status": "done",
+          "output": "iterations/iter_03/pipeline/01_landscape_scan.md",
+          "ts": "2026-05-21T10:45:00Z",
+          "notes": "정량 항목 27개 (시장 10 / 효소단가 8 / 로열티 9) + IP/FTO 결정적 항목 7개 (Halozyme MDASE PL8 carve-out, Codexis ligase 청구항, mTG cluster Araris, EnzyPep US10883132 vs OaAEP1, FCE NEB 패밀리 4국가, NBE SMAC, AJICAP) + CDMO RFI 신호 5개 (Lonza Synaffix 2026-02 통합 [H], Samsung Bio enzyme-mediated 명시, WuXi XDC backlog $1.49B, Aldevron Codex HiCap, Bachem CEPS+Codexis TIDES). confidence 상향 후보 6개: item_005 M(M→H), item_002 M+IP, item_007 IP, item_008 IP+T, item_021 IP, item_015 IP 강화. WebFetch 모두 403 차단 → search 요약본 다중교차로 보완. EfHyl8 vs rHuPH20 SC diffusion 정량값 미확보(R4 과제)."
+        },
+        "B_candidates": {"status": "pending", "output": null, "ts": null, "notes": null},
+        "C_scoring": {"status": "pending", "output": null, "ts": null, "notes": null},
+        "D_digest": {"status": "pending", "output": null, "ts": null, "notes": null}
+      }
     }
   ],
   "consolidated_digest": null,
