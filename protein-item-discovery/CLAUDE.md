@@ -39,18 +39,66 @@
 - 출처가 부족하거나 너무 한쪽에 치우치면 보강 검색을 추가로 수행한다.
 - 토큰 한계로 인해 일부 후보를 누락한 경우 그 사실을 명시한다.
 
-## 7. 파일 네이밍
-- `candidates/item_NNN_<short_name>.md` — NNN은 001부터 zero-padding.
-- `reports/digest_YYYYMMDD.md` — UTC 기준 실행일.
-- `state/run_state.json` 스키마(예시):
+## 7. 파일 네이밍 & 디렉토리 (v2 — multi-iteration)
+- 라운드별 산출 위치: `iterations/iter_NN/{pipeline,candidates,data,digest.md}`. NN은 두 자리 zero-pad.
+  - 단 Round 1(2026-05-21)의 산출은 backward compatibility를 위해 루트(`pipeline/`, `candidates/`, `data/`, `reports/digest_20260521.md`)에 그대로 둔다. iter 1 시각으로 참조할 때는 루트 경로를 사용.
+- 누적 최신 점수: `data/candidates_current.csv` (가장 최신 라운드의 점수가 미러됨).
+- 라운드별 점수 이력: `data/candidates_history.csv` — 컬럼에 `iter`를 포함해 append-only.
+- 최종 통합 보고서: `reports/consolidated_digest_<YYYYMMDD>.md` (3라운드 종료 시 D agent가 작성).
+- 후보 카드 id: 라운드를 넘나들며 단일 namespace 유지 (R2 신규 후보는 R1 마지막 +1부터, item_015~).
+
+## 8. State Schema v2 (multi-iteration)
+`state/run_state.json`:
 ```json
 {
-  "run_id": "YYYYMMDD-HHMM",
-  "phases": {
-    "A_landscape": {"status": "done|pending|failed", "output": "pipeline/01_landscape_scan.md", "ts": "...", "notes": "..."},
-    "B_candidates": {"status": "...", "output": "pipeline/02_candidates.md", "ts": "...", "notes": "..."},
-    "C_scoring":   {"status": "...", "output": "pipeline/03_scored.md", "ts": "...", "notes": "..."},
-    "D_digest":    {"status": "...", "output": "reports/digest_YYYYMMDD.md", "ts": "...", "notes": "..."}
-  }
+  "schema_version": 2,
+  "config": {
+    "min_iterations": 3,
+    "auto_chain": true
+  },
+  "current_iteration": 1,
+  "iterations": [
+    {
+      "iter": 1,
+      "run_id": "20260521-A",
+      "focus": "broad_scan",
+      "started_ts": "...",
+      "completed_ts": "...",
+      "output_root": ".",
+      "phases": {
+        "A_landscape": {"status":"done","output":"pipeline/01_landscape_scan.md","ts":"...","notes":"..."},
+        "B_candidates": {...},
+        "C_scoring": {...},
+        "D_digest": {...}
+      }
+    },
+    {
+      "iter": 2,
+      "run_id": "...",
+      "focus": "deferred_and_boost",
+      "output_root": "iterations/iter_02",
+      "phases": {...}
+    }
+  ],
+  "consolidated_digest": null,
+  "quality_gates_triggered": []
 }
 ```
+
+## 9. Orchestrator Loop Policy
+1. "실행" / "run pipeline" 호출 시 메인 Orchestrator는 `state/run_state.json`을 읽어 `current_iteration`을 확인한다.
+2. 해당 iteration의 phases가 모두 done이면 다음 iteration을 새로 만든다 (`scope/iteration_plan.md`의 focus 적용).
+3. iteration 내부에서는 A→B→C→D 순으로 실행. 완료된 phase는 건너뛴다.
+4. iteration의 D가 done이 되면:
+   - `current_iteration < config.min_iterations` 이고 `config.auto_chain == true`이면 **사용자에게 묻지 않고** 즉시 다음 iteration의 A를 시작한다.
+   - `current_iteration >= config.min_iterations`이면 user 확인 후 R(N+1)을 시작하거나 중단.
+5. 3라운드 종료 시 D agent는 per-iter digest 외에 **consolidated_digest**를 생성한다.
+6. quality-gate (`scope/iteration_plan.md` §2 R4+) 발동 시 메인은 사용자에게 1회 확인 후 자동 체이닝.
+7. 부분 실행 ("Round 2의 Phase C만"): 명령에 라운드와 phase가 명시되면 그 단일 phase만 실행. 누락된 선행 phase는 메인이 확인 1회 후 함께 실행.
+8. 실패 처리: phase 실패 시 메인이 한 번 재시도 지시. 두 번째도 실패면 사용자에게 알리고 정지.
+
+## 10. 사업화 형태(business_model) 축
+Round 2부터 모든 candidate 카드는 `scope/business_model_taxonomy.md`의 분류(L/K/C/S/H)를 primary+secondary로 기재한다. Phase D digest는 사업화 형태별 그룹 표를 포함한다.
+
+## 11. confidence 태그
+Round 2부터 Phase C는 각 6축 점수 옆에 `[confidence: H|M|L]` 태그를 단다. 정의는 `scope/iteration_plan.md` §4. 출처 키 형식은 `scope/pricing_sources.md` §5.

@@ -59,3 +59,37 @@ ADC, bispecific/multispecific, radioconjugate, peptide therapeutic (특히 GLP-1
 - FDA/EMA의 새로운 가이던스 (특히 process-related impurity, conjugation product quality, SC 제형, novel excipient)
 - 주요 효소·플랫폼의 핵심 특허 만료 시점 (제네릭/바이오시밀러 기회)
 - CDMO 병목, 공급망 단일 출처 위험 — 대체 효소 수요 신호
+
+## 8. Round 2 보강 검색 영역 (deferred & boost)
+R1에서 도출됐으나 후보화에서 보류되거나 [추정]으로 처리됐던 영역. R2 landscape-scanner가 우선 추적.
+
+### 8.1 TPD (Targeted Protein Degradation) 시약 시장
+- E3 ligase, E1 (UBA1), E2 (UBE2D, UBE2L3), deubiquitinase (USP, OTU 패밀리) 재조합 효소.
+- PROTAC·molecular glue screening kit 제조사: Promega, BPS Bioscience, R&D Systems, Cell Signaling Technology, South Bay Bio.
+- 시장 정보: Arvinas, Monte Rosa, Neomorph deal (Phase A R1 §1.3).
+
+### 8.2 PETase / MHETase / cutinase — 의약품 PET 포장재 ESG
+- IFF, Carbios, Novozymes의 PETase 상업화 동향.
+- FDA Sustainable Packaging 정책 흐름.
+- 1차 의약품 포장재(PET vial, PET blister) 재활용 시범 사업.
+
+### 8.3 Non-PH20 hyaluronidase
+- Leech-derived hyaluronidase (Hyalozyme의 LH 등 [추정]).
+- 세균 hyaluronate lyase (PL8 family — Streptococcus, Propionibacterium).
+- Chondroitinase ABC / AC (Proteus vulgaris) 의 SC 확산 가능성.
+- 새 fold·새 origin → IP 우회 + 잠재 SC 확산 효능.
+
+### 8.4 Radioligand peptide-chelator의 enzymatic conjugation
+- Pluvicto·Lutathera 후속 효소 conjugation 가능성.
+- PeptiDream, Aktis, Fusion, RadioMedix, ITM, Curium 공정 발표.
+- DOTA/PSMA-617 chelator를 사용한 sortase·OaAEP1·subtiligase 효소 결합 사례.
+
+### 8.5 mRNA capping / polyA / IVT helper 효소
+- Vaccinia capping enzyme (VCE) 변이체 — Aldevron, Maravai.
+- Faustovirus capping enzyme (FCE) — co-trans 1-step capping.
+- 2'-O-methyltransferase (cap1 형성).
+- polyA polymerase (E. coli PAP, S. cerevisiae Pap1).
+- IVT 후처리: DNase I, RNase H, RNase III (dsRNA 제거), inorganic pyrophosphatase.
+
+## 9. Round 3 정량화·IP 출처
+`scope/pricing_sources.md` 참조.

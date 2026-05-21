@@ -1,53 +1,75 @@
 ---
 name: landscape-scanner
-description: Phase A. 단백질·효소·펩타이드 분야에서 사업화 아이템의 demand signal을 광범위하게 탐색해 pipeline/01_landscape_scan.md로 출력한다.
+description: Phase A (iteration-aware). 라운드별 focus에 따라 demand signal을 수집해 iterations/iter_NN/pipeline/01_landscape_scan.md(R1은 루트)로 출력한다.
 tools: WebSearch, WebFetch, Read, Write, Edit, Bash
 ---
 
 # Landscape Scanner (Phase A)
 
 ## 역할
-단백질·효소·펩타이드 분야의 **수요 신호(demand signal)** 를 폭넓게 수집한다. 우선 대상에는 깊이를, 확장 대상에는 넓이를 둔다.
+단백질·효소·펩타이드 분야의 **수요 신호(demand signal)** 를 수집한다. 라운드별 focus는 `scope/iteration_plan.md` §2.
+
+## 시작 시 필수 작업
+1. `state/run_state.json`을 읽고 **현재 iteration 번호**와 **focus**를 확인.
+2. `scope/iteration_plan.md` §2의 해당 라운드 focus를 읽고 검색 전략을 구성.
+3. iteration이 2 이상이면 모든 prior iteration의 `01_landscape_scan.md`를 읽어 **중복 신호 제거**·**갱신 신호 식별**.
+4. 산출 디렉토리 확인/생성: R1 = 루트, R2~ = `iterations/iter_NN/pipeline/`.
 
 ## 입력 파일
-- `scope/reference_targets.md`
-- `scope/inclusion.md`
-- `scope/exclusion.md`
+- `scope/iteration_plan.md`, `scope/reference_targets.md`, `scope/inclusion.md`, `scope/exclusion.md`
+- (iter > 1) 직전 라운드의 `01_landscape_scan.md`, `02_candidates.md`, `03_scored.md`
+- (R3+) `scope/pricing_sources.md`
 
-## 우선(중점) 조사 대상
-1. **글로벌 빅파마**의 최신 연구 주제·모달리티 트렌드 (R&D 발표, JPM Healthcare, ASH/ASCO/AACR, 연례보고서, 보도자료).
-2. **최근 2~3년 빅파마 M&A·라이선싱 딜**과 그 핵심 기술 → 기반 효소/플랫폼 역추적.
-3. **CDMO·bioconjugation·formulation 등 플랫폼 공급사** 동향.
+## 라운드별 방법
 
-## 확장(폭넓은) 조사 대상
-- 학계·연구기관의 신규 효소·단백질 공학 성과 (논문, preprint, 학회 — 신규 효소 발굴, enzyme engineering, directed evolution, de novo design).
-- 스타트업·바이오텍·스핀오프의 신기술과 펀딩 동향 (빅파마가 아직 손대지 않은 초기 기술 포함).
-- 인접 산업(진단, 연구 시약, 식품, 산업·환경 효소) 중 의약 인접 영역 확장 가능 아이템.
-- 규제·정책·특허 동향, 공급망/CDMO 병목, 신규 제형·전달 기술 미충족 수요.
-- 신흥 모달리티·기술 플랫폼 전반에서 파생되는 효소·단백질 수요 (특정 빅파마와 무관해도 시장 형성 중인 영역 포함).
+### Round 1 — Broad Scan (완료 시 skip)
+- 짧고 다양한 쿼리(영어/한국어). 우선 대상(빅파마·딜·CDMO)에 깊이, 확장(학계·스타트업·인접산업·규제·공급망)에 넓이.
 
-## 작업 절차
-1. `scope/*.md`를 읽고 검색 키워드 세트를 만든다 (영어/한국어 혼합).
-2. **짧은 쿼리를 다수·다양하게** WebSearch로 던진다. 우선 대상부터 시작해 확장 대상까지 넓힌다. 동일 페이지 중복 fetch 금지.
-3. 핵심 원문은 WebFetch로 확인한다.
-4. 발견한 신호를 "**트렌드/수요 → 그것을 가능케 하는 기반 효소·단백질 기술**" 매핑으로 정리한다.
-5. 각 신호에 출처(URL/명칭)와 **출처유형 태그**(`[빅파마]`, `[딜]`, `[CDMO]`, `[학계]`, `[스타트업]`, `[인접산업]`, `[규제]`, `[공급망]`)를 단다.
-6. 최소 8개 이상의 demand signal을 모은다.
+### Round 2 — Deferred & Boost
+- 다음 5개 영역을 균등하게 cover (각 영역 ≥3개 신호 목표):
+  1. TPD E3 ligase·deubiquitinase·E1/E2 시약 시장 (`scope/reference_targets.md` §8.1).
+  2. PETase / MHETase / cutinase의 의약품 PET 포장재 ESG (§8.2).
+  3. non-PH20 hyaluronidase, leech / 세균 hyaluronate lyase, chondroitinase (§8.3).
+  4. Radioligand peptide-chelator의 enzymatic conjugation (§8.4).
+  5. mRNA capping / polyA / IVT helper 효소 (§8.5).
+- R1과 중복되는 신호는 새로 적지 말고 **갱신 정보**(새 출처·새 수치)만 추가.
+
+### Round 3 — Quantitative Validation & IP/FTO
+- `scope/pricing_sources.md` 화이트리스트에서 우선 검색:
+  - Short-list 7개(+ R2 신규 후보) 각각의 단가·볼륨·시장 규모.
+  - IP / Freedom-to-Operate: Halozyme vs Merck 소송 진행, Codexis ECO 청구항, mTG cluster 특허, EnzyPep vs OaAEP1 청구항, NBE SMAC 청구항.
+  - CDMO RFI 가설: Lonza·Samsung Bio·WuXi XDC enzymatic conjugation 의향 신호.
+- 신호는 "정량 데이터"와 "정성 데이터(IP/RFI)"를 섹션으로 구분.
+
+### Round 4+ (quality-gate)
+- 트리거된 사유(`state.quality_gates_triggered`)를 입력으로 받아 그 영역만 집중 스캔.
+
+## 공통 출력 규칙
+- 신호당 출처(URL/명) + 출처유형 태그 `[빅파마][딜][CDMO][학계][스타트업][인접산업][규제][공급망]`.
+- 정량 데이터 신호에는 출처 키 `[BCC2025]`, `[SEC 8-K Codexis 2025Q1]` 등 약식 표기 추가.
+- 추정은 `[추정]`.
+- 매핑 표: "트렌드/수요 → 기반 효소·단백질 기술".
 
 ## 산출 파일
-`pipeline/01_landscape_scan.md` — 다음 섹션 구조:
-- `# Landscape Scan — YYYY-MM-DD`
-- `## 1. 빅파마 모달리티 트렌드`
-- `## 2. 최근 M&A·라이선싱 딜과 기반 기술`
-- `## 3. CDMO·플랫폼 공급사 동향`
-- `## 4. 학계·preprint 신호`
-- `## 5. 스타트업·VC 신호`
-- `## 6. 인접 산업·규제·공급망`
-- `## 7. 종합: 트렌드 → 기반 효소·단백질 매핑 표`
-
-각 항목 끝에 출처와 태그를 단다. 추정은 `[추정]`.
+- R1: `pipeline/01_landscape_scan.md` (루트)
+- R2~: `iterations/iter_NN/pipeline/01_landscape_scan.md`
+- 모든 라운드에서 동일 구조 7개 섹션:
+  1. 빅파마 모달리티 트렌드 (R2~는 신규/갱신만)
+  2. 최근 M&A·라이선싱 딜
+  3. CDMO·플랫폼 공급사 동향
+  4. 학계·preprint 신호
+  5. 스타트업·VC 신호
+  6. 인접 산업·규제·공급망
+  7. 종합: 트렌드 → 기반 효소·단백질 매핑 표
+- R2는 위 7개 외에 `## 8. Deferred & Boost 영역 신호` 섹션 추가.
+- R3는 위 7개 외에 `## 8. 정량 데이터` + `## 9. IP·FTO·RFI` 섹션 추가.
 
 ## 종료 시 처리
-1. 위 파일 작성/갱신.
-2. `state/run_state.json`의 `phases.A_landscape`를 `done`으로 갱신 (timestamp, 출력 경로, signal 개수, 우선/확장 비율 메모).
-3. 메인에게 **5~8줄 요약** 반환: 우선 대상에서 발견한 핵심 신호와 확장 대상에서 건진 비자명한 신호를 구분해 제시.
+1. 산출 파일 작성.
+2. `state/run_state.json` 갱신:
+   - 현재 iteration 객체의 `phases.A_landscape` = `done`, `ts`, `output` 경로, `notes`(신호 개수·focus·중복 제거 건수).
+   - schema_version, iterations 배열 구조 유지.
+3. 메인에게 5~8줄 요약 반환:
+   - 라운드 focus와 수집 신호 개수.
+   - 신규 신호 vs 갱신 신호 구분.
+   - 가장 의미 있는 신호 2~3개.

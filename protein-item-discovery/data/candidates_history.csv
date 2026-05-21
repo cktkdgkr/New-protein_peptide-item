@@ -1,0 +1,15 @@
+iter,id,item_name,class,inclusion_bucket,business_model_primary,business_model_secondary,market,feasibility,regulatory,whitespace,ip,time,weighted_score,rank,shortlist,delta_from_prev,confidence_market,confidence_feasibility,confidence_regulatory,confidence_whitespace,confidence_ip,confidence_time,lifecycle
+1,item_001,Next-gen recombinant hyaluronidase (non-PH20/PH20 variant) for SC conversion,hyaluronidase (EC 3.2.1.35),formulation_change,,,5,3,3,2,2,2,3.15,12,0,,,,,,,,new_at_round_1
+1,item_002,Engineered microbial transglutaminase (mTG) for site-specific ADC conjugation,aminoacyltransferase (EC 2.3.2.13),process_enzyme,,,5,4,5,3,3,4,4.20,1,1,,,,,,,,new_at_round_1
+1,item_003,"Engineered Sortase A variant (Ca-independent, high-kcat) for ADC/peptide bioconjugation",transpeptidase (EC 3.4.22.70),process_enzyme,,,4,4,5,3,3,4,3.95,5,1,,,,,,,,new_at_round_1
+1,item_004,Formylglycine-Generating Enzyme (FGE) for aldehyde-tag dual-payload ADC,sulfatase-modifying (EC 1.8.3.7),process_enzyme,,,3,3,5,4,4,3,3.65,8,0,,,,,,,,new_at_round_1
+1,item_005,EndoS2 glycosynthase mutant (transglycosylation) for homogeneous Fc glycan,endo-beta-N-acetylglucosaminidase (EC 3.2.1.96),process_enzyme,,,4,4,5,3,3,4,3.95,5,1,,,,,,,,new_at_round_1
+1,item_006,"Engineered T7 RNA polymerase variant (low-dsRNA, co-trans capping)",DNA-directed RNA polymerase (EC 2.7.7.6),process_enzyme,,,5,4,5,2,3,4,4.05,4,1,,,,,,,,new_at_round_1
+1,item_007,Engineered RNA ligase (splint-ligation for oligonucleotide/AOC synthesis),RNA ligase (EC 6.5.1.3),process_enzyme,,,4,4,5,4,4,3,4.10,3,1,,,,,,,,new_at_round_1
+1,item_008,Peptiligase / OaAEP1 C247A variant for green enzymatic peptide ligation,asparaginyl endopeptidase (EC 3.4.22.-),peptide_manufacturing,,,5,4,5,3,4,3,4.20,1,1,,,,,,,,new_at_round_1
+1,item_009,"Engineered Peptide Amidating Enzyme (PAM, bifunctional)",amidating monooxygenase/lyase (EC 1.14.17.3 + 4.3.2.5),peptide_manufacturing,,,4,2,5,5,4,2,3.75,7,1,,,,,,,,new_at_round_1
+1,item_010,Engineered IdeS/IdeZ variant (FabRICATOR class) for QC + ex-vivo research,cysteine protease (EC 3.4.22.-),diagnostic_research_industrial,,,3,4,4,2,2,4,3.25,10,0,,,,,,,,new_at_round_1
+1,item_011,Recombinant PNGase F + sialyltransferase/galactosyltransferase set (glycan QC/remodel),EC 3.5.1.52 / EC 2.4.99.x,diagnostic_research_industrial,,,3,4,4,2,2,4,3.25,10,0,,,,,,,,new_at_round_1
+1,item_012,Next-gen Cas12/Cas13 variant + RPA recombinase/SSB set for POC molecular Dx,RNA-guided nuclease (EC 3.1.-.-),diagnostic_research_industrial,,,3,3,3,2,2,3,2.75,14,0,,,,,,,,new_at_round_1
+1,item_013,"High-fidelity Prime Editor (vPE Cas9 + engineered MMLV-RT, research/ex-vivo grade)",nuclease + reverse transcriptase (EC 2.7.7.49),diagnostic_research_industrial,,,3,3,4,4,3,3,3.35,9,0,,,,,,,,new_at_round_1
+1,item_014,AI-designed (RFdiffusion2/3) custom enzyme - reagent-grade nuclease/ligase/polymerase,de novo designed,diagnostic_research_industrial,,,3,2,4,3,5,2,3.10,13,0,,,,,,,,new_at_round_1
