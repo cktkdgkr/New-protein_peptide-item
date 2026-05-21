@@ -76,10 +76,11 @@
         },
         "B_candidates": {"status": "done", "output": "iterations/iter_03/pipeline/02_candidates.md", "ts": "2026-05-21T11:15:00Z", "notes": "R3 보강 카드 23/23 완료 (R1·R2 23개 카드의 정량/IP/RFI 신호 diff 형식 보강). 신규 0건 (R3 신호 모두 기존 카드 흡수, cannibalization 회피). 부활 0건. 병합 0건. 드롭 0건 (경계 사례 item_001·010·013·020 모두 scope 유지 재확인). 누적 활성 23개 유지. business_model 조정 0건 (item_005 K/L→L/K 격상은 R3 C 결과 후 재검토). TPD trio (item_018·019·023) cross-cannibalization 메모 추가 — 상하 SKU tier 보완 구조로 별도 카드 유지 권고. R3 C 주목 후보: item_005 EndoS2 (Lonza Synaffix 통합 = M·W confidence H 상향 + L primary 격상 검토), item_021 cGMP sortase radioligand (NBE SMAC carve-out 명확화 + Radioligand $4.8B 정량 → 가중합 +0.15→4.25 예측), item_002 mTG (IP 3→4 M→H → +0.10→4.30), item_008 peptiligase (IP·T M→H, Top 1 4.30 유지)."},
         "C_scoring": {"status": "done", "output": "iterations/iter_03/pipeline/03_scored.md", "ts": "2026-05-21T11:55:00Z", "notes": "R3 23개 후보 6축 재스코어링 완료. R3 short-list 7개 (R2와 동일 멤버): item_002(4.30 ▲+0.10), item_008(4.30, 공동 1위), item_021(4.25 ▲+0.15), item_007(4.10), item_003(3.95), item_005(3.95), item_017(3.90). R2→R3 delta ≠ 0 후보: item_002(+0.10, IP 3→4 M→H Araris/AJICAP carve-out), item_021(+0.15, W 4→5 NBE SMAC carve-out 명확화). 나머지 21개 raw 변동 0. confidence M→H 상향 7건/5개 후보(item_002 IP, item_005 M·W, item_007 IP, item_008 IP·T, item_021 IP). L→M 상향 0건. Top-5 가중합 SD R2=0.117 → R3=0.136 (Δ=+0.019, 임계 0.15 미만). |delta| 최대 0.15(item_021), ±1 이상 변동 0건. quality-gate 미발동. 누적 short-list(≥2회) = 7개 (item_002·003·005·007·008·017·021). 신규 1-pager 0개 (short-list 멤버 변경 없음). D agent의 consolidated_digest 진행 정당화."},
-        "D_digest": {"status": "pending", "output": null, "ts": null, "notes": null}
-      }
+        "D_digest": {"status": "done", "output": "iterations/iter_03/digest.md", "ts": "2026-05-21T12:30:00Z", "notes": "R3 per-iter digest 작성 (mirror: reports/digest_round_03_20260521.md) + consolidated_digest_20260521.md (3라운드 통합) 작성 완료. R3 Top 3: item_002(4.30 ▲+0.10), item_008(4.30 공동 1위), item_021(4.25 ▲+0.15). Cumulative short-list 7개 (R2·R3 멤버 100% 동일): ★★★ 5개 (item_002, 003, 005, 007, 008), ★★ 2개 (item_017, 021), ★ 2개 (item_006, 009, R1 한정). Top-5 SD R1=0.095 → R2=0.117 → R3=0.136 (임계 0.15 미달). M→H 7건/5개 후보 (short-list 100% 집중). 즉시 착수 추천: item_002 mTG (K). 중기 검증: item_008 peptiligase (L). 장기 R&D: item_021 cGMP sortase radioligand (K)."}
+      },
+      "completed_ts": "2026-05-21T12:30:00Z"
     }
   ],
-  "consolidated_digest": null,
+  "consolidated_digest": "reports/consolidated_digest_20260521.md",
   "quality_gates_triggered": []
 }
