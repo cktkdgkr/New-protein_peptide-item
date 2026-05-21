@@ -54,7 +54,7 @@
           "ts": "2026-05-21T07:45:00Z",
           "notes": "18 fresh signals (TPD 4 / PETase 3 / non-PH20 hyaluronidase 4 / radioligand 3 / mRNA aux 4); R2 신규:갱신 ≈ 65:35. R1 18행 표 유지, R2 신규 10행 추가. 부활 후보 2개(TPD reagent cocktail, cutinase ESG) + 신규 후보 8개(item_015~022) Phase B 권장."
         },
-        "B_candidates": {"status":"pending","output":"iterations/iter_02/pipeline/02_candidates.md","ts":null,"notes":null},
+        "B_candidates": {"status":"done","output":"iterations/iter_02/pipeline/02_candidates.md","ts":"2026-05-21T08:20:00Z","notes":"R2 신규 8 (item_015~022) + 부활 1 활성 (item_023) + 병합 1 (item_024 → item_020) + 드롭 0; R1 14개에 business_model+lifecycle 사후 부여. 누적 활성 후보 23개. business_model primary 분포: L=3 / K=12 / C=6 / S=2 / H=0. 분류 분포: 공정 9 / 제형 2 / 진단·연구 9 / 펩타이드 3. 특이: EfHyl8(item_015)이 item_001과 non-PH20 경쟁; item_018·019·023이 TPD 3단 계층; item_021이 item_003/008 응용 확장."},
         "C_scoring": {"status":"pending","output":"iterations/iter_02/pipeline/03_scored.md","ts":null,"notes":null},
         "D_digest": {"status":"pending","output":"iterations/iter_02/digest.md","ts":null,"notes":null}
       }
