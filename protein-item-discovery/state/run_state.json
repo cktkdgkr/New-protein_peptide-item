@@ -56,8 +56,9 @@
         },
         "B_candidates": {"status":"done","output":"iterations/iter_02/pipeline/02_candidates.md","ts":"2026-05-21T08:20:00Z","notes":"R2 신규 8 (item_015~022) + 부활 1 활성 (item_023) + 병합 1 (item_024 → item_020) + 드롭 0; R1 14개에 business_model+lifecycle 사후 부여. 누적 활성 후보 23개. business_model primary 분포: L=3 / K=12 / C=6 / S=2 / H=0. 분류 분포: 공정 9 / 제형 2 / 진단·연구 9 / 펩타이드 3. 특이: EfHyl8(item_015)이 item_001과 non-PH20 경쟁; item_018·019·023이 TPD 3단 계층; item_021이 item_003/008 응용 확장."},
         "C_scoring": {"status":"done","output":"iterations/iter_02/pipeline/03_scored.md","ts":"2026-05-21T09:05:00Z","notes":"R2 23개 후보 6축 스코어링 + confidence H/M/L 태그 적용. Top weighted: item_008 (4.30, +0.10). R2 short-list 7개: item_008(4.30), item_002(4.20), item_007(4.10), item_021(4.10 new), item_003(3.95), item_005(3.95), item_017(3.90 new). R1→R2 IN: item_021, item_017. OUT: item_006(4.05→3.80 delta -0.25, CleanCap M6 압박), item_009(3.75 변동없으나 cap 7 도달). |delta| 최대 0.25(item_006), ±1 이상 변동 없음. Top-5 가중합 SD R1=0.095 → R2=0.117 (Δ=+0.022, 임계 0.15 미만). quality-gate 미발동."},
-        "D_digest": {"status":"pending","output":"iterations/iter_02/digest.md","ts":null,"notes":null}
-      }
+        "D_digest": {"status":"done","output":"iterations/iter_02/digest.md","ts":"2026-05-21T09:35:00Z","notes":"R2 per-iter digest 작성 (mirror: reports/digest_round_02_20260521.md). Top 3: item_008(4.30 ▲+0.10), item_002(4.20), item_007·item_021 tie(4.10, item_021 new). IN: item_021·item_017 / OUT: item_006(-0.25)·item_009(cap). quality-gate 미발동. consolidated digest는 R3에서 작성(min_iterations=3 미도달)."}
+      },
+      "completed_ts": "2026-05-21T09:35:00Z"
     }
   ],
   "consolidated_digest": null,
