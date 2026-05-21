@@ -1,0 +1,9 @@
+{
+  "run_id": null,
+  "phases": {
+    "A_landscape": {"status": "pending", "output": "pipeline/01_landscape_scan.md", "ts": null, "notes": null},
+    "B_candidates": {"status": "pending", "output": "pipeline/02_candidates.md", "ts": null, "notes": null},
+    "C_scoring":   {"status": "pending", "output": "pipeline/03_scored.md", "ts": null, "notes": null},
+    "D_digest":    {"status": "pending", "output": "reports/digest_YYYYMMDD.md", "ts": null, "notes": null}
+  }
+}
