@@ -4,7 +4,7 @@
     "min_iterations": 3,
     "auto_chain": true
   },
-  "current_iteration": 1,
+  "current_iteration": 2,
   "iterations": [
     {
       "iter": 1,
@@ -38,6 +38,25 @@
           "ts": "2026-05-21T06:55:00Z",
           "notes": "Executive digest 작성 완료. Short-list top 3: item_002, item_008, item_007. Excel/Word export 완료."
         }
+      }
+    },
+    {
+      "iter": 2,
+      "run_id": "20260521-B",
+      "focus": "deferred_and_boost",
+      "started_ts": "2026-05-21T07:10:00Z",
+      "completed_ts": null,
+      "output_root": "iterations/iter_02",
+      "phases": {
+        "A_landscape": {
+          "status": "done",
+          "output": "iterations/iter_02/pipeline/01_landscape_scan.md",
+          "ts": "2026-05-21T07:45:00Z",
+          "notes": "18 fresh signals (TPD 4 / PETase 3 / non-PH20 hyaluronidase 4 / radioligand 3 / mRNA aux 4); R2 신규:갱신 ≈ 65:35. R1 18행 표 유지, R2 신규 10행 추가. 부활 후보 2개(TPD reagent cocktail, cutinase ESG) + 신규 후보 8개(item_015~022) Phase B 권장."
+        },
+        "B_candidates": {"status":"pending","output":"iterations/iter_02/pipeline/02_candidates.md","ts":null,"notes":null},
+        "C_scoring": {"status":"pending","output":"iterations/iter_02/pipeline/03_scored.md","ts":null,"notes":null},
+        "D_digest": {"status":"pending","output":"iterations/iter_02/digest.md","ts":null,"notes":null}
       }
     }
   ],
