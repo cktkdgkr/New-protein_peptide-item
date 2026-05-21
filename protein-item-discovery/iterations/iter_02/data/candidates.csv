@@ -15,7 +15,7 @@ item_013,"High-fidelity Prime Editor (vPE Cas9 + engineered MMLV-RT, research/ex
 item_014,AI-designed (RFdiffusion2/3) custom enzyme - reagent-grade nuclease/ligase/polymerase,de novo designed,diagnostic_research_industrial,S,L,3,2,4,3,5,2,3.10,21,0,0.00,L,M,M,M,M,L,maintained_at_round_2
 item_015,EfHyl8 PL8 hyaluronate lyase (non-PH20 SC diffusion agent),hyaluronate lyase (EC 4.2.2.1),formulation_change,K,L,4,3,3,4,4,2,3.40,13,0,,M,M,M,H,H,L,new_at_round_2
 item_016,FCE::T7RNAP fusion / FCE + 2'-O-MTase one-pot Cap-1 system,EC 2.7.7.50 + EC 2.7.7.6 + EC 2.1.1.57,process_enzyme,C,K,4,3,5,2,3,4,3.60,12,0,,H,M,H,H,M,M,new_at_round_2
-item_017,Inorganic pyrophosphatase (IVT helper, GMP non-animal source),inorganic diphosphatase (EC 3.6.1.1),process_enzyme,C,,4,5,5,2,2,4,3.90,7,1,,H,H,H,H,M,M,new_at_round_2
+item_017,"Inorganic pyrophosphatase (IVT helper, GMP non-animal source)",inorganic diphosphatase (EC 3.6.1.1),process_enzyme,C,,4,5,5,2,2,4,3.90,7,1,,H,H,H,H,M,M,new_at_round_2
 item_018,CRBN/VHL E3 ligase ternary complex assay reagent,ubiquitin protein ligase (EC 6.3.2.-),diagnostic_research_industrial,C,,4,3,4,2,2,3,3.20,18,0,,H,M,M,H,M,M,new_at_round_2
 item_019,USP7/USP28/OTUB1 recombinant DUB cocktail (DUBTAC reagent),ubiquitin-specific peptidase (EC 3.4.19.12),diagnostic_research_industrial,C,,3,4,4,3,3,3,3.40,13,0,,M,M,M,M,M,L,new_at_round_2
 item_020,Engineered LCC / cutinase + AI-designed PETase (pharma PET packaging ESG),polyester hydrolase / PETase (EC 3.1.1.101),diagnostic_research_industrial,S,L,3,3,4,3,3,2,3.10,21,0,,M,M,M,M,M,L,new_at_round_2 (absorbs item_024)
