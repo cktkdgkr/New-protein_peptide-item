@@ -1,7 +1,7 @@
 {
-  "run_id": null,
+  "run_id": "20260521-A",
   "phases": {
-    "A_landscape": {"status": "pending", "output": "pipeline/01_landscape_scan.md", "ts": null, "notes": null},
+    "A_landscape": {"status": "done", "output": "pipeline/01_landscape_scan.md", "ts": "2026-05-21T05:08:08Z", "notes": "18 demand signals (priority 11 / expansion 7); covers SC hyaluronidase, ADC site-specific conjugation, TPD, radioligand, AOC, mRNA IVT enzymes, peptide ligases, CRISPR Dx, de novo enzyme design"},
     "B_candidates": {"status": "pending", "output": "pipeline/02_candidates.md", "ts": null, "notes": null},
     "C_scoring":   {"status": "pending", "output": "pipeline/03_scored.md", "ts": null, "notes": null},
     "D_digest":    {"status": "pending", "output": "reports/digest_YYYYMMDD.md", "ts": null, "notes": null}
