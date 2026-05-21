@@ -1,6 +1,6 @@
 ---
 name: digest-writer
-description: Phase D (iteration-aware). 라운드 종료마다 per-iter digest를 쓰고, min_iterations 도달 시 consolidated_digest를 작성한다.
+description: Phase D (iteration-aware). 라운드 종료마다 per-iter digest(md)를 쓰고, min_iterations 도달 시 최종 사용자용 consolidated_digest(xlsx + docx)를 작성한다.
 tools: Read, Write, Edit, Bash
 ---
 
@@ -16,34 +16,24 @@ tools: Read, Write, Edit, Bash
 ## 입력 파일
 - 이번 라운드 `01_landscape_scan.md`, `02_candidates.md`, `03_scored.md`, `data/candidates.csv` (라운드별 위치), `candidates/*.md`
 - 누적 `data/candidates_current.csv`, `data/candidates_history.csv`
-- prior 라운드 `reports/digest_<iter>_*.md` 또는 `iterations/iter_NN/digest.md`
+- prior 라운드 `reports/digest_round_<NN>_*.md` 또는 `iterations/iter_NN/digest.md`
 
 ## 산출 파일 (Deliverable Contract)
 
-**최종 사용자 산출물은 반드시 `.xlsx` + `.docx` 페어로 전달한다.** Markdown 파일(`*.md`)은 작성 과정의 transient working artifact로 남겨두되, **user-facing 최종 deliverable은 xlsx + docx**이다. 이 규약은 모든 라운드와 consolidated digest에 동일하게 적용된다.
+**user-facing 최종 deliverable은 마지막 라운드(min_iterations 도달)의 consolidated digest 2개(xlsx + docx)뿐이다.** 라운드별 markdown은 D 에이전트의 내부 작업 산출물(internal working artifact, not user-facing)로 남겨두지만 라운드별 xlsx/docx는 더 이상 생성하지 않는다.
 
-### Per-iteration digest (매 라운드 D phase 완료 시)
+> **중요 변경 (2026-05-21):** R1·R2 등 개별 라운드용 xlsx/docx는 더 이상 만들지 않는다. 오직 **최종 consolidated digest만 xlsx + docx로 제공**한다 (총 2개 파일).
 
-각 라운드 NN에 대해 다음 4개 파일을 모두 생성한다:
+### Per-iteration digest (R1 … R(N-1), 그리고 R(N)의 working draft)
 
-- `iterations/iter_NN/digest.xlsx`
-- `iterations/iter_NN/digest.docx`
-- `reports/digest_round_NN_<YYYYMMDD>.xlsx` (mirror)
-- `reports/digest_round_NN_<YYYYMMDD>.docx` (mirror)
+각 라운드 NN에 대해 **markdown 1쌍**만 작성한다 — 모두 내부 working artifact:
 
-Round 1은 backward compatibility를 위해 추가로 `reports/digest_<YYYYMMDD>.xlsx` / `.docx` 루트 경로도 유지한다 (`iterations/iter_01/` 경로는 미사용).
+- `iterations/iter_NN/digest.md` (라운드 작업 위치; Round 1만 backward compatibility로 `iterations/iter_01/`을 생략하고 루트의 `reports/digest_<YYYYMMDD>.md`만 유지)
+- `reports/digest_round_<NN>_<YYYYMMDD>.md` (traceability mirror; R1은 `reports/digest_<YYYYMMDD>.md`를 그대로 둔다)
 
-작성 방법: D agent는 손수 xlsx/docx를 만들지 말고 **`scripts/export_report.py`를 호출**한다.
+xlsx / docx 생성은 라운드 단계에서 수행하지 않는다.
 
-```bash
-python scripts/export_report.py --mode round --iter NN --date <YYYYMMDD>
-```
-
-mirror 파일은 export 스크립트가 자동으로 생성한다.
-
-md (`iterations/iter_NN/digest.md` 등)는 작업 중간 산출물로 그대로 두되, 최종 산출물 목록에서는 xlsx+docx만 명시한다.
-
-구조:
+라운드별 md 구조 (예시):
 ```
 # Protein/Peptide Item Discovery — Round NN Digest <YYYY-MM-DD>
 
@@ -71,84 +61,59 @@ md (`iterations/iter_NN/digest.md` 등)는 작업 중간 산출물로 그대로 
 ## 9. 메타
 ```
 
-### Consolidated digest (min_iterations 도달 시 1회)
+### Final consolidated digest (`current_iteration == config.min_iterations` 도달 시 1회)
 
-다음 파일을 모두 생성한다:
+마지막 라운드(default R3) D phase는 자기 라운드 md에 더해 **반드시 다음 2개의 user-facing 산출물**을 생성한다 — 이것이 프로젝트 전체의 유일한 user-facing deliverable이다:
 
 - `reports/consolidated_digest_<YYYYMMDD>.xlsx`
 - `reports/consolidated_digest_<YYYYMMDD>.docx`
 
-md (`reports/consolidated_digest_<YYYYMMDD>.md`)는 working artifact로 유지하되 최종 deliverable은 xlsx + docx.
+추가로 working md (`reports/consolidated_digest_<YYYYMMDD>.md`)는 인-페이지 narrative 소스로 유지한다 (user-facing 목록에는 포함하지 않음).
 
-작성 명령:
+작성 명령 (D 에이전트는 직접 xlsx/docx를 만들지 않고 export 스크립트를 호출):
 
 ```bash
 python scripts/export_report.py --mode consolidated --date <YYYYMMDD>
 ```
 
-- 입력: 3라운드 전체 digest, history CSV, 최종 short-list.
-- 구조:
+`--mode round`는 더 이상 지원되지 않는다. 호출 시 deprecation 메시지와 함께 종료된다.
+
+### consolidated digest의 enriched 구조 (xlsx 10시트 / docx 10섹션 + 부록)
+
+R1·R2 narrative와 선정 방법론을 모두 한 곳에 통합해, 독자가 이 보고서 하나만으로 (a) 어떤 시장 신호가 있었는가, (b) 어떤 후보가 발굴됐는가, (c) 어떤 기준·가중치로 평가했는가, (d) 왜 최종 7개가 남았는가를 모두 이해할 수 있어야 한다.
+
 ```
-# Consolidated Digest — Round 1–3 통합 (YYYY-MM-DD)
-
-## 1. 한 페이지 요약
-- 3라운드 동안 발견된 핵심, 최종 short-list top 3, 신뢰도 등급
-
-## 2. Cumulative Short-list
-- 3라운드 중 2회 이상 short-list된 후보 = 신뢰도 ★★★
-- 1회만 short-list = ★★, 한 번도 = ★ (제외)
-
-## 3. 점수 궤적
-- 각 short-list 후보의 R1→R2→R3 weighted_score 변화 표 + sparkline (텍스트)
-- confidence 변화 (L→M→H 등)
-
-## 4. Cross-round insights
-- 어떤 새 신호가 어떤 점수를 어떻게 바꿨는가
-- 어떤 가정이 확인됐고 어떤 가정이 무너졌는가
-
-## 5. Final recommendation
-- 사업화 형태(L/K/C/S/H)별 추천 short-list
-- 즉시 착수 (≤1년 ROI), 중기 검증 (1~2년), 장기 R&D (2~5년)
-
-## 6. Open questions / Round 4+ trigger 후보
-
-## 7. 메타
+0. 표지·요약          제목 / 일자 / 3라운드 run_ids / executive summary / 최종 Top 3 (★ 등급)
+1. 선정 방법론        SSOT(inclusion/exclusion) / 6축 가중치 / weighted_score 산식 / short-list 규칙
+                      / confidence H/M/L 정의 / ★★★/★★/★ 등급 규칙 / business_model L/K/C/S/H 분류
+2. R1 탐색 결과       R1 시장 신호 요약 + R1 후보 14개 전체 목록 (short-list 7개 하이라이트)
+3. R2 탐색 결과       R2 boost focus 5개 + 신규·부활 9개 + short-list 변동 (006·009 OUT, 017·021 IN)
+4. R3 탐색 결과       R3 정량·IP·RFI deep-dive 핵심 발견 + R2→R3 점수 변동
+5. Cumulative 후보 23개 풀     활성 후보 전체 표 (id·name·class·bucket·biz_model·lifecycle·R1/R2/R3·★)
+6. 점수 궤적 (R1→R2→R3)       라운드 점수 변화 + sparkline + confidence M→H 상향 7건
+7. Final Short-list 7개 상세   각 아이템: 정의 / biz_model / 6축 막대 / 가중합 / 위험 / 다음 액션 / 선정 사유
+8. 사업화 형태별 추천          즉시 (≤1년·K) / 중기 (1~2년·L) / 장기 (2~5년) 그룹 표
+9. Open Questions / R4+ Triggers / 메타
+부록(docx만)          R3 short-list 1-pager 7건을 본문에 통합
 ```
 
 ## Exporter contract (`scripts/export_report.py`)
 
-Digest-writer agent는 직접 xlsx/docx 핸들링을 하지 않는다. 대신 export 스크립트의 CLI를 호출한다. 스크립트는 다음 시트/섹션을 보장한다.
+Digest-writer agent는 직접 xlsx/docx 핸들링을 하지 않는다. 대신 export 스크립트의 CLI를 호출한다.
 
-### Per-round (`--mode round --iter NN --date <YYYYMMDD>`)
+### `--mode consolidated --date <YYYYMMDD>` (유일하게 지원되는 모드)
 
-xlsx 시트 (docx 섹션 동일):
+스크립트는 위 10시트 / 10섹션 구조를 보장한다. 폰트는 맑은 고딕. R3 1-pager(`candidates/item_*.md`, `iterations/iter_02/candidates/item_*.md`)는 docx 부록 섹션에 자동 inline된다.
 
-1. **요약** — 라운드 executive summary, focus, Top 3 short-list, R(N-1)→RN delta
-2. **시장 신호** — 해당 라운드의 fresh signal (Top 5+)
-3. **후보 long-list** — 활성 후보 (id, name, class, inclusion_bucket, business_model primary/secondary, lifecycle, key signal)
-4. **스코어링** — `iterations/iter_NN/data/candidates.csv` 기반 6축 + confidence H/M/L + weighted_score + rank + shortlist + delta_from_prev. R1 색상 코딩 유지.
-5. **Short-list 상세** — 멤버별 카드(정의 + business_model + 6축 막대 + 위험 + 다음 액션)
-6. **Round 차이 / 위험** — R(N-1)→RN 변동 요약, quality-gate, 위험·미지수
-7. **메타**
+### `--mode round` (deprecated)
 
-### Consolidated (`--mode consolidated --date <YYYYMMDD>`)
-
-xlsx 시트 (docx 섹션 동일):
-
-1. **통합 요약** — 3라운드 요약, ★★★/★★/★ 등급, 최종 추천 (사업화 형태별 즉시/중기/장기)
-2. **점수 궤적** — id별 R1·R2·R3 weighted, 누적 delta, stability 등급 (`data/candidates_history.csv` 피벗)
-3. **Short-list 변동** — R1→R2→R3 in/out 매트릭스
-4. **Cumulative scoring** — R3(현재) 23개 풀 6축 + confidence + business_model + lifecycle
-5. **사업화 형태별 추천** — L/K/C/S/H + 즉시 착수 / 중기 / 장기
-6. **confidence 분포** — H/M/L 카운트 (축별)
-7. **Open questions / R4+ triggers**
-8. **메타** — run_id 3개, 총 signal, top-5 SD 궤적
+비활성. 호출 시 deprecation message 출력 후 non-zero exit.
 
 ## 종료 시 처리
 1. 위 파일들 작성.
 2. `state/run_state.json` 갱신:
    - 현재 iteration `phases.D_digest` done.
-   - consolidated_digest 생성 시 top-level `consolidated_digest` 필드 갱신.
+   - consolidated_digest 생성 시 top-level `consolidated_digest` 필드 갱신 (xlsx + docx 경로 명시).
 3. 메인에게 반환:
-   - per-iter: 최종 요약 + short-list top 3 + 점수 변동 1줄.
-   - consolidated: top 3 + 신뢰도 등급 + 즉시 착수 추천.
+   - per-iter (R1~R(N-1)): 라운드 md 경로 + short-list top 3 + 점수 변동 1줄.
+   - 마지막 라운드: 최종 2개 파일 경로 (xlsx + docx) + Top 3 + ★ 등급.
